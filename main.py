@@ -20,11 +20,13 @@ class MainWindow(QWidget):
         self.about_button = QPushButton('About', self)
         self.about_button.setGeometry(660, 20, 120, 35)        
         self.about_button.clicked.connect(self.show_about)
-
+        self.about_button.setObjectName('secondaryBtn')
 
         self.load_button = QPushButton('Load CSV', self)
         self.load_button.setGeometry(20, 20, 140, 35)
         self.load_button.clicked.connect(self.load_file)
+        self.load_button.setObjectName('primaryBtn')
+    
 
         self.figure = Figure()
 
@@ -34,6 +36,9 @@ class MainWindow(QWidget):
 
         self.toolbar = NavigationToolbar2QT(self.canvas, self)
         self.toolbar.setGeometry(20, 65, 760, 40)
+
+        with open('style.qss', 'r') as f:
+            self.setStyleSheet(f.read())
 
     def show_about(self):
         self.about_window.show()
