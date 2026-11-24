@@ -29,7 +29,6 @@ class MainWindow(QWidget):
     
 
         self.figure = Figure()
-        self.figure.tight_layout(pad=0.8)
 
         self.canvas = FigureCanvasQTAgg(self.figure)
         self.canvas.setParent(self)
@@ -86,6 +85,7 @@ class MainWindow(QWidget):
         ax.set_xlabel('Temperature (°C)')
         ax.set_ylabel('Revenue ($)')
 
+        self.figure.tight_layout(pad=0.8)
         self.canvas.draw()
 
 
