@@ -29,6 +29,7 @@ class MainWindow(QWidget):
     
 
         self.figure = Figure()
+        self.figure.tight_layout(pad=0.8)
 
         self.canvas = FigureCanvasQTAgg(self.figure)
         self.canvas.setParent(self)
@@ -71,10 +72,15 @@ class MainWindow(QWidget):
         x_line = np.array([min(self.temperatures), max(self.temperatures)])
         y_line = m * x_line + b
         ax.plot(x_line, y_line, color='red', linewidth=1.5, label=f'y = {m:.2f}x + {b:.2f}')
-        ax.legend()
+        ax.legend(frameon=False)
 
         ax.spines['top'].set_visible(False)
         ax.spines['right'].set_visible(False)
+        ax.spines['left'].set_color('#888888')
+        ax.spines['bottom'].set_color('#888888')
+        ax.spines['left'].set_linewidth(0.8)
+        ax.spines['bottom'].set_linewidth(0.8)
+        ax.tick_params(colors='#555555', length=3)
 
         ax.set_title('Ice Cream Revenue vs. Temperature')
         ax.set_xlabel('Temperature (°C)')
