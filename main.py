@@ -2,6 +2,7 @@ from PySide6.QtWidgets import QApplication, QWidget, QPushButton, QFileDialog
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg, NavigationToolbar2QT
 from matplotlib.figure import Figure
 from About import AboutWindow
+import numpy as np
 
 
 class MainWindow(QWidget):
@@ -61,6 +62,11 @@ class MainWindow(QWidget):
         ax = self.figure.add_subplot(111)
 
         ax.scatter(self.temperatures, self.revenues, s=1)
+        m, b = np.polyfit(self.temperatures, self.revenues, 1)
+        x_line = np.array([min(self.temperatures), max(self.temperatures)])
+        y_line = m * x_line + b
+        ax.plot(x_line, y_line, color='red', linewidth=1.5, label=f'y = {m:.2f}x + {b:.2f}')
+        ax.legend()
 
         ax.spines['top'].set_visible(False)
         ax.spines['right'].set_visible(False)
