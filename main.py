@@ -133,7 +133,12 @@ class MainWindow(QWidget):
         self.m, self.b = np.polyfit(temps, self.revenues, 1)
         x_line = np.array([min(temps), max(temps)])
         y_line = self.m * x_line + self.b
-        ax.plot(x_line, y_line, color='red', linewidth=1.5, label=f'y = {self.m:.2f}x + {self.b:.2f}')
+        
+        if self.b >= 0:
+            eq_label = f'y = {self.m:.2f}x + {self.b:.2f}'
+        else:
+            eq_label = f'y = {self.m:.2f}x - {abs(self.b):.2f}'
+        ax.plot(x_line, y_line, color='red', linewidth=1.5, label=eq_label)
 
         if self.predicted_temp is not None:
             ax.scatter([self.predicted_temp], [self.predicted_rev], color='#16a34a', marker='*', s=120, zorder=5,
